@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warkop Kang Asep – Ngopi Kalem, Ngobrol Asyik</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&family=Caveat:wght@600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Warkop <span>Kang Asep</span></a>
+
+    <ul class="nav-links">
+      <li><a href="#tentang">Tentang</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#fasilitas">Fasilitas</a></li>
+      <li><a href="#testimoni">Ulasan</a></li>
+      <li><a href="#jam-buka">Lokasi</a></li>
+      <li><a href="https://wa.me/6281234567890" target="_blank" class="nav-cta">Pesan Sekarang</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="cart-toggle" id="cartToggle" aria-label="Buka keranjang">
+        🛒<span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#tentang">Tentang</a>
+    <a href="#menu">Menu</a>
+    <a href="#fasilitas">Fasilitas</a>
+    <a href="#testimoni">Ulasan</a>
+    <a href="#jam-buka">Lokasi</a>
+    <a href="https://wa.me/6281234567890" target="_blank">Pesan Sekarang →</a>
+  </div>
+
+  <!-- ===================== KERANJANG BELANJA ===================== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3>🛒 Keranjang Kamu</h3>
+      <button class="cart-close" id="cartClose" aria-label="Tutup keranjang">✕</button>
+    </div>
+
+    <div class="cart-body" id="cartBody">
+      <div class="cart-kosong" id="cartKosong">
+        <span class="cart-kosong-ikon">☕</span>
+        <p>Keranjang masih kosong.<br>Yuk pilih menu favoritmu!</p>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+    </div>
+
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-total-row">
+        <span>Total Belanja</span>
+        <span class="cart-total-angka" id="cartTotal">Rp 0</span>
+      </div>
+      <button class="btn-checkout" id="btnCheckout">Checkout via WhatsApp</button>
+      <button class="btn-kosongkan" id="btnKosongkan">Kosongkan Keranjang</button>
+    </div>
+  </aside>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-wood"></div>
+
+    <div class="hero-content">
+      <span class="hero-eyebrow">☕ Sejak 2008 – Mustikajaya, Bekasi</span>
+      <h1 class="hero-title">
+        Ngopi <span class="aksen">Kalem,</span><br>Ngobrol Asyik
+      </h1>
+      <p class="hero-sub">
+        Tempat di mana secangkir kopi bukan cuma minuman —
+        tapi jeda dari hiruk-pikuk, ruang untuk ide, dan alasan bertemu kawan lama.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#menu" class="btn-primer">Lihat Menu Kami</a>
+        <a href="#tentang" class="btn-sekunder">Kenali Kami</a>
+      </div>
+    </div>
+
+    <!-- Dekorasi cangkir + uap -->
+    <div class="steam-wrap">
+      <svg class="cup-svg" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25 70 Q20 140 60 150 Q100 140 95 70 Z" fill="rgba(245,236,215,0.6)"/>
+        <path d="M25 70 L95 70" stroke="rgba(245,236,215,0.4)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M95 90 Q120 90 120 110 Q120 130 95 130"
+              stroke="rgba(245,236,215,0.4)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path class="uap" d="M45 55 Q50 35 45 15"
+              stroke="rgba(245,236,215,0.8)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path class="uap" d="M60 50 Q65 30 60 10"
+              stroke="rgba(245,236,215,0.8)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path class="uap" d="M75 55 Q80 35 75 15"
+              stroke="rgba(245,236,215,0.8)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===================== TENTANG ===================== -->
+  <section id="tentang">
+    <div class="tentang-visual reveal">
+      <div class="tentang-kotak">
+        <div class="badge-tahun">16<small>Tahun<br>Berdiri</small></div>
+        <p class="tentang-quote">
+          "Kopi bukan soal merk atau mesin. Kopi itu soal cerita yang tertuang di setiap cangkir."
+        </p>
+        <p class="tentang-sumber">— Kang Asep, Pendiri</p>
+      </div>
+    </div>
+
+    <div class="tentang-teks reveal">
+      <h2>Lebih dari Sekadar Warung Kopi</h2>
+      <p>
+        Berawal dari gerobak kecil di sudut jalan Mustikajaya, Kang Asep membangun tempat nongkrong
+        yang hangat dan merakyat. Kami percaya bahwa kopi terbaik adalah kopi yang dinikmati
+        bersama orang-orang yang kita sayangi.
+      </p>
+      <p>
+        Menggunakan biji kopi pilihan dari petani lokal Jawa Barat — Pengalengan dan Garut —
+        setiap racikan dibuat dengan tangan, penuh ketelitian dan cinta.
+      </p>
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="stat-angka">200+</span>
+          <span class="stat-label">Cangkir/Hari</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-angka">40+</span>
+          <span class="stat-label">Menu Pilihan</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-angka">4.9★</span>
+          <span class="stat-label">Rating Google</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MENU ===================== -->
+  <section id="menu">
+    <div class="menu-header reveal">
+      <h2>Menu Andalan Kami</h2>
+      <p>Pilih favoritmu dan kami siapkan dengan sepenuh hati</p>
+    </div>
+
+    <!-- Filter Kategori -->
+    <div class="menu-filter reveal">
+      <button class="filter-btn aktif" data-filter="semua">Semua</button>
+      <button class="filter-btn" data-filter="kopi-panas">☕ Kopi Panas</button>
+      <button class="filter-btn" data-filter="kopi-dingin">🧊 Kopi Dingin</button>
+      <button class="filter-btn" data-filter="non-kopi">🍵 Non-Kopi</button>
+      <button class="filter-btn" data-filter="makanan">🍽️ Makanan</button>
+      <button class="filter-btn" data-filter="cemilan">🍪 Cemilan</button>
+    </div>
+
+    <!-- Kartu Menu -->
+    <div class="menu-grid" id="menuGrid">
+
+      <!-- ── KOPI PANAS ── -->
+      <div class="menu-card reveal" data-kategori="kopi-panas">
+        <div class="kartu-ikon">☕<span class="badge-andalan">Andalan</span></div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Kopi Tubruk Original</p>
+          <p class="kartu-desc">Kopi robusta Pengalengan diseduh tradisional, pekat dan harum. Klasik tak tergantikan.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 8.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Kopi Tubruk Original', 8000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="kopi-panas">
+        <div class="kartu-ikon">🫙</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Kopi Susu Kang Asep</p>
+          <p class="kartu-desc">Espresso double shot dengan susu segar full cream, disajikan hangat-hangat kuku.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 14.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Kopi Susu Kang Asep', 14000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="kopi-panas">
+        <div class="kartu-ikon">🍂</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Cappuccino Kayu Manis</p>
+          <p class="kartu-desc">Cappuccino lembut dengan taburan kayu manis bubuk. Aroma yang menghangatkan pagi.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 18.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Cappuccino Kayu Manis', 18000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="kopi-panas">
+        <div class="kartu-ikon">🌿</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Americano Garut</p>
+          <p class="kartu-desc">Arabika single origin Garut, diseduh pour-over. Profil coklat hitam dan asam buah ringan.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 16.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Americano Garut', 16000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KOPI DINGIN ── -->
+      <div class="menu-card reveal" data-kategori="kopi-dingin">
+        <div class="kartu-ikon">🧊<span class="badge-andalan">Hits!</span></div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Es Kopi Susu Aren</p>
+          <p class="kartu-desc">Espresso, susu segar, dan gula aren asli Cianjur. Manis alami tanpa gula pasir.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 16.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Es Kopi Susu Aren', 16000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="kopi-dingin">
+        <div class="kartu-ikon">🥛</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Cold Brew 18 Jam</p>
+          <p class="kartu-desc">Diseduh dingin selama 18 jam. Smooth, kaya rasa, dan low-acid. Cocok buat perut sensitif.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 20.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Cold Brew 18 Jam', 20000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="kopi-dingin">
+        <div class="kartu-ikon">🍦</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Affogato</p>
+          <p class="kartu-desc">Satu scoop es krim vanilla ditenggelamkan espresso panas. Kontras yang bikin nagih.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 22.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Affogato', 22000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="kopi-dingin">
+        <div class="kartu-ikon">🫧</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Dalgona Kopi</p>
+          <p class="kartu-desc">Busa kopi manis lembut di atas susu segar dingin. Cantik dan enak.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 18.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Dalgona Kopi', 18000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NON-KOPI ── -->
+      <div class="menu-card reveal" data-kategori="non-kopi">
+        <div class="kartu-ikon">🍵</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Teh Tarik</p>
+          <p class="kartu-desc">Teh hitam kuat ditarik dengan susu kental manis, berbusa dan harum. Asli cita rasa warung.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 9.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Teh Tarik Bandung', 9000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="non-kopi">
+        <div class="kartu-ikon">🍃</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Matcha Latte</p>
+          <p class="kartu-desc">Matcha grade premium, dipadukan susu segar. Bisa panas atau dingin.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 19.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Matcha Latte', 19000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="non-kopi">
+        <div class="kartu-ikon">🌸</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Wedang Jahe Rempah</p>
+          <p class="kartu-desc">Jahe merah, kayu manis, cengkeh, kapulaga — resep warisan. Menghangatkan dari dalam.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 10.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Wedang Jahe Rempah', 10000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="non-kopi">
+        <div class="kartu-ikon">🍹</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Es Jeruk Peras</p>
+          <p class="kartu-desc">Jeruk segar diperas langsung di hadapanmu. Segar alami tanpa sirup.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 8.000 <small>/ gelas</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Es Jeruk Peras', 8000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MAKANAN ── -->
+      <div class="menu-card reveal" data-kategori="makanan">
+        <div class="kartu-ikon">🍳<span class="badge-andalan">Favorit</span></div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Nasi Goreng Kang Asep</p>
+          <p class="kartu-desc">Nasi goreng teri Medan dengan telur ceplok, acar timun, dan kerupuk. Menu paling dipesan.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 18.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Nasi Goreng Kang Asep', 18000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="makanan">
+        <div class="kartu-ikon">🍜</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Mie Rebus Spesial</p>
+          <p class="kartu-desc">Mie kuning dengan kuah kaldu ayam, sawi, tahu, telur, dan bawang goreng renyah.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 15.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Mie Rebus Spesial', 15000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="makanan">
+        <div class="kartu-ikon">🥪</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Roti Bakar Coklat Keju</p>
+          <p class="kartu-desc">Roti tawar tebal dibakar sempurna, dilapisi selai coklat dan keju parut. Klasik warkop banget.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 12.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Roti Bakar Coklat Keju', 12000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="makanan">
+        <div class="kartu-ikon">🍳</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Indomie Goreng Telur</p>
+          <p class="kartu-desc">Indomie goreng spesial dengan extra telur orak-arik, sosis, dan bawang goreng. Murah meriah!</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 11.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Indomie Goreng Telur', 11000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CEMILAN ── -->
+      <div class="menu-card reveal" data-kategori="cemilan">
+        <div class="kartu-ikon">🥜</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Kacang Rebus</p>
+          <p class="kartu-desc">Kacang tanah rebus dengan garam kasar. Cocok banget nemenin ngobrol sambil ngopi.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 5.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Kacang Rebus', 5000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="cemilan">
+        <div class="kartu-ikon">🍪</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Pisang Goreng Madu</p>
+          <p class="kartu-desc">Pisang kepok setengah matang, digoreng crispy, disiram madu asli. Hangat dan lumer.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 10.000 <small>/ 3 pcs</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Pisang Goreng Madu', 10000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-kategori="cemilan">
+        <div class="kartu-ikon">🧇</div>
+        <div class="kartu-body">
+          <p class="kartu-nama">Singkong Goreng Sambal</p>
+          <p class="kartu-desc">Singkong empuk gurih digoreng garing, disajikan dengan sambal kacang pedas.</p>
+          <div class="kartu-footer">
+            <span class="kartu-harga">Rp 8.000 <small>/ porsi</small></span>
+            <button class="btn-pesan" onclick="tambahKeranjang('Singkong Goreng Sambal', 8000)">+ Keranjang</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /menu-grid -->
+  </section>
+
+  <!-- ===================== FASILITAS ===================== -->
+  <section id="fasilitas">
+    <div class="fasilitas-inner">
+      <div class="seksi-judul reveal">
+        <h2>Kenapa Harus ke Sini?</h2>
+        <p>Kami hadirkan kenyamanan yang bikin betah berlama-lama</p>
+      </div>
+      <div class="fasilitas-grid">
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">📶</span>
+          <p class="fasilitas-judul">WiFi Kencang</p>
+          <p class="fasilitas-teks">Internet fiber 100 Mbps, gratis untuk semua pengunjung. Cocok kerja atau belajar online.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">🔌</span>
+          <p class="fasilitas-judul">Stop Kontak Banyak</p>
+          <p class="fasilitas-teks">Setiap meja dilengkapi stop kontak. Laptop kamu nggak akan kehabisan baterai di sini.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">🌿</span>
+          <p class="fasilitas-judul">Area Outdoor</p>
+          <p class="fasilitas-teks">Taman kecil dengan angin sejuk Mustikajaya. Santai sambil menikmati suasana alam.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">🎵</span>
+          <p class="fasilitas-judul">Live Musik Malam</p>
+          <p class="fasilitas-teks">Setiap Jumat–Minggu malam ada live akustik. Suasana makin hidup, kopi makin nikmat.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">🚗</span>
+          <p class="fasilitas-judul">Parkir Luas</p>
+          <p class="fasilitas-teks">Halaman parkir besar, bisa motor dan mobil. Dateng rame-rame juga aman.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">📦</span>
+          <p class="fasilitas-judul">Pesan &amp; Takeaway</p>
+          <p class="fasilitas-teks">Tersedia di GrabFood, GoFood, dan ShopeeFood. Nikmati warkop di rumah.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">🧑‍💼</span>
+          <p class="fasilitas-judul">Ruang Meeting</p>
+          <p class="fasilitas-teks">Ruangan khusus kapasitas 10 orang. Bisa disewa per jam untuk rapat atau diskusi.</p>
+        </div>
+        <div class="fasilitas-item reveal">
+          <span class="fasilitas-ikon">🏠</span>
+          <p class="fasilitas-judul">Smoking &amp; No-Smoking</p>
+          <p class="fasilitas-teks">Ada zona khusus merokok dan zona bebas rokok. Semua nyaman di sini.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONI ===================== -->
+  <section id="testimoni">
+    <div class="testimoni-inner">
+      <div class="seksi-judul reveal">
+        <h2 style="color:var(--susu);">Kata Mereka yang Sudah Ke Sini</h2>
+        <p style="color:rgba(245,236,215,0.45);">Bukan kami yang bilang — pelanggan kami yang cerita</p>
+      </div>
+      <div class="testi-track">
+        <div class="testi-kartu reveal">
+          <div class="testi-bintang">★★★★★</div>
+          <p class="testi-teks">
+            "Warkop paling nyaman yang pernah saya datangi. Kopinya authentic, harganya bersahabat.
+            Sudah 3 tahun jadi pelanggan setia!"
+          </p>
+          <p class="testi-nama">Budi Santoso</p>
+          <p class="testi-peran">Pegawai Swasta, Mustikajaya</p>
+        </div>
+        <div class="testi-kartu reveal">
+          <div class="testi-bintang">★★★★★</div>
+          <p class="testi-teks">
+            "Tempatnya bikin betah. Pagi-pagi ngopi di sini sebelum kerja rasanya ngecharge semangat.
+            Es kopi susu arennya juara!"
+          </p>
+          <p class="testi-nama">Rina Marlina</p>
+          <p class="testi-peran">Guru SD, Banjaran</p>
+        </div>
+        <div class="testi-kartu reveal">
+          <div class="testi-bintang">★★★★★</div>
+          <p class="testi-teks">
+            "WiFi-nya kencang, ada colokan di semua meja. Saya sering kerja remote dari sini.
+            Recommended banget buat pekerja kreatif!"
+          </p>
+          <p class="testi-nama">Diky Firmansyah</p>
+          <p class="testi-peran">Freelancer Desainer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JAM BUKA ===================== -->
+  <section id="jam-buka">
+    <div class="jam-inner">
+      <div class="reveal">
+        <ul class="jam-tabel" id="jamTabel">
+          <li><span class="hari">Senin</span>  <span class="jam">07:00 – 23:00</span></li>
+          <li><span class="hari">Selasa</span> <span class="jam">07:00 – 23:00</span></li>
+          <li><span class="hari">Rabu</span>   <span class="jam">07:00 – 23:00</span></li>
+          <li><span class="hari">Kamis</span>  <span class="jam">07:00 – 23:00</span></li>
+          <li><span class="hari">Jumat</span>  <span class="jam">07:00 – 00:00</span></li>
+          <li><span class="hari">Sabtu</span>  <span class="jam">08:00 – 00:00</span></li>
+          <li><span class="hari">Minggu</span> <span class="jam">08:00 – 22:00</span></li>
+        </ul>
+      </div>
+
+      <div class="jam-info reveal">
+        <h2>Buka Setiap Hari, Siap Menemanimu</h2>
+        <p>
+          Mulai dari sarapan pagi sampai begadang malam, kami selalu ada.
+          Cocok untuk meeting, santai, atau nongkrong hingga larut.
+        </p>
+        <div class="jam-alamat">
+          <strong>📍 Alamat Kami</strong>
+          Jl. Raya Mustikajaya No. 8, Mustikajaya,<br>
+          Kota bekasi, Jawa Barat 40911<br><br>
+          <strong>📞 Kontak</strong>
+          0812-3456-7890 (WhatsApp &amp; Telepon)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-nama">Warkop <span>Kang Asep</span></div>
+        <p class="footer-desc">
+          Tempat ngopi, ngobrol, dan nongkrong paling asik di Mustikajaya sejak 2008.
+          Kopi enak, harga merakyat, suasana hangat.
+        </p>
+        <div class="footer-sosial">
+          <a href="#" class="sosial-btn" title="Instagram">📸</a>
+          <a href="#" class="sosial-btn" title="Facebook">👍</a>
+          <a href="https://wa.me/6281234567890" class="sosial-btn" title="WhatsApp">💬</a>
+          <a href="#" class="sosial-btn" title="TikTok">🎵</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Jelajahi</h4>
+        <ul>
+          <li><a href="#tentang">Tentang Kami</a></li>
+          <li><a href="#menu">Menu Lengkap</a></li>
+          <li><a href="#fasilitas">Fasilitas</a></li>
+          <li><a href="#testimoni">Ulasan Pelanggan</a></li>
+          <li><a href="#jam-buka">Lokasi &amp; Jam</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pesan Online</h4>
+        <ul>
+          <li><a href="https://wa.me/6281234567890">WhatsApp Order</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2024 Warkop Kang Asep. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Toast Notifikasi -->
+  <div class="toast" id="toast"></div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
