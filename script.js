@@ -311,9 +311,9 @@ function renderKeranjang() {
         <p class="cart-item-harga">${formatRupiah(item.harga)} / item</p>
       </div>
       <div class="cart-item-qty">
-        <button class="qty-btn" onclick="ubahQty('${item.nama.replace(/'/g, "\\'")}', -1)" aria-label="Kurangi">−</button>
+        <button class="qty-btn" onclick="ubahQty('${item.nama.replace(/'/g, "\\'")}', -1)" aria-label="Kurangi"><span>−</span></button>
         <span class="qty-angka">${item.qty}</span>
-        <button class="qty-btn" onclick="ubahQty('${item.nama.replace(/'/g, "\\'")}', 1)" aria-label="Tambah">+</button>
+        <button class="qty-btn" onclick="ubahQty('${item.nama.replace(/'/g, "\\'")}', 1)" aria-label="Tambah"><span>+</span></button>
       </div>
       <button class="cart-item-hapus" onclick="hapusItem('${item.nama.replace(/'/g, "\\'")}')" aria-label="Hapus item">🗑️</button>
     </div>
