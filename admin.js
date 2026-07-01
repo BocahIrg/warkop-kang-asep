@@ -277,7 +277,7 @@ function renderMenuAdmin() {
 
   gridEl.innerHTML = semuaMenu.map(item => {
     const thumb = isUrlGambar(item.ikon)
-      ? `<div class="menu-admin-thumb"><img src="${escapeHtml(item.ikon)}" alt="${escapeHtml(item.nama)}" onerror="this.parentElement.innerHTML='☕'" /></div>`
+      ? `<img class="menu-admin-thumb" src="${escapeHtml(item.ikon)}" alt="${escapeHtml(item.nama)}" onerror="this.style.display='none'" />`
       : `<div class="menu-admin-thumb">☕</div>`;
 
     return `
