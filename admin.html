@@ -137,6 +137,29 @@
     }
     .btn-logout:hover { border-color: var(--amber); color: var(--amber-light); }
 
+    .btn-lihat-situs {
+      background: transparent;
+      border: 1.5px solid rgba(200,132,26,0.5);
+      color: var(--amber-light);
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-lihat-situs:hover { background: rgba(200,132,26,0.15); border-color: var(--amber); }
+
+    .order-meja {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--kopi-light);
+      background: rgba(28,15,7,0.06);
+      padding: 0.1rem 0.55rem;
+      border-radius: 100px;
+      margin-left: 0.5rem;
+    }
+
     .tabs {
       display: flex; gap: 0.6rem;
       padding: 1.5rem 5% 0;
@@ -274,6 +297,15 @@
       display: flex; justify-content: space-between; align-items: flex-start;
       gap: 0.6rem; margin-bottom: 0.4rem;
     }
+    .menu-admin-thumb {
+      width: 52px; height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--susu);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
     .menu-admin-nama { font-weight: 700; font-size: 0.98rem; }
     .menu-admin-kategori {
       font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
@@ -327,6 +359,20 @@
       border: 1.5px solid rgba(28,15,7,0.15);
       font-family: 'Lato', sans-serif;
       font-size: 0.9rem;
+      color: var(--kopi);
+      background: var(--putih);
+    }
+    .modal-box .field input::placeholder,
+    .modal-box .field textarea::placeholder {
+      color: rgba(28,15,7,0.35);
+    }
+    .modal-box .field img.preview-ikon {
+      display: block;
+      margin-top: 0.5rem;
+      width: 70px; height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1.5px solid rgba(28,15,7,0.15);
     }
     .modal-box .field textarea { resize: vertical; min-height: 60px; }
     .modal-box .checkbox-row {
@@ -382,6 +428,7 @@
     <nav class="admin-nav">
       <div class="brand">Warkop <span>Kang Asep</span> — Admin</div>
       <div class="admin-nav-right">
+        <a href="index.html" class="btn-lihat-situs" target="_blank" rel="noopener">🌐 Lihat Situs</a>
         <span class="email-tag" id="emailTag"></span>
         <button class="btn-logout" id="btnLogout">Keluar</button>
       </div>
@@ -450,8 +497,9 @@
         </select>
       </div>
       <div class="field">
-        <label>Ikon (emoji)</label>
-        <input type="text" id="formIkon" placeholder="☕" maxlength="4" />
+        <label>Gambar Menu (URL)</label>
+        <input type="text" id="formIkon" placeholder="https://contoh.com/gambar-menu.jpg" />
+        <img id="previewIkon" class="preview-ikon" style="display:none;" alt="Pratinjau gambar" />
       </div>
       <div class="field">
         <label>Urutan Tampil</label>

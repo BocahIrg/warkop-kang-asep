@@ -120,7 +120,7 @@ async function muatMenu() {
 
     gridEl.innerHTML = data.map(item => `
       <div class="menu-card reveal" data-kategori="${item.kategori}">
-        <div class="kartu-ikon">${item.ikon || '☕'}${item.andalan ? '<span class="badge-andalan">Andalan</span>' : ''}</div>
+        <div class="kartu-ikon">${renderIkonMenu(item.ikon)}${item.andalan ? '<span class="badge-andalan">Andalan</span>' : ''}</div>
         <div class="kartu-body">
           <p class="kartu-nama">${escapeHtml(item.nama)}</p>
           <p class="kartu-desc">${escapeHtml(item.deskripsi || '')}</p>
@@ -149,6 +149,18 @@ function escapeHtml(teks) {
   const div = document.createElement('div');
   div.textContent = teks;
   return div.innerHTML;
+}
+
+function isUrlGambar(nilai) {
+  if (!nilai) return false;
+  return /^https?:\/\//i.test(nilai) || nilai.startsWith('/') || nilai.startsWith('data:image');
+}
+
+function renderIkonMenu(ikon) {
+  if (isUrlGambar(ikon)) {
+    return `<img src="${escapeHtml(ikon)}" alt="Foto menu" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'), {textContent:'☕'}))" />`;
+  }
+  return escapeHtml(ikon || '☕');
 }
 
 function escapeJs(teks) {
@@ -317,12 +329,55 @@ function bumpBadge() {
   cartBadge.classList.add('bump');
 }
 
-/* ---------- Checkout: simpan ke database + buka WhatsApp ---------- */
-btnCheckout.addEventListener('click', async () => {
-  if (keranjang.length === 0) return;
+/* ---------- Modal Checkout: input Nama + No Meja ---------- */
+const checkoutOverlay   = document.getElementById('checkoutOverlay');
+const inputNamaPesanan  = document.getElementById('inputNamaPesanan');
+const inputNoMeja       = document.getElementById('inputNoMeja');
+const checkoutErrorEl   = document.getElementById('checkoutError');
+const btnCheckoutBatal  = document.getElementById('btnCheckoutBatal');
+const btnCheckoutKirim  = document.getElementById('btnCheckoutKirim');
 
-  const namaPelanggan = (prompt('Atas nama siapa pesanan ini?') || '').trim();
-  if (!namaPelanggan) return; // batal kalau nama kosong / dibatalkan
+function bukaModalCheckout() {
+  checkoutErrorEl.textContent = '';
+  inputNamaPesanan.value = '';
+  inputNoMeja.value = '';
+  checkoutOverlay.classList.add('tampil');
+  setTimeout(() => inputNamaPesanan.focus(), 50);
+}
+
+function tutupModalCheckout() {
+  checkoutOverlay.classList.remove('tampil');
+}
+
+btnCheckout.addEventListener('click', () => {
+  if (keranjang.length === 0) return;
+  bukaModalCheckout();
+});
+
+btnCheckoutBatal.addEventListener('click', tutupModalCheckout);
+checkoutOverlay.addEventListener('click', (e) => {
+  if (e.target === checkoutOverlay) tutupModalCheckout();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && checkoutOverlay.classList.contains('tampil')) tutupModalCheckout();
+});
+
+btnCheckoutKirim.addEventListener('click', prosesCheckout);
+inputNoMeja.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') prosesCheckout();
+});
+
+/* ---------- Checkout: simpan ke database + buka WhatsApp ---------- */
+async function prosesCheckout() {
+  const namaPelanggan = inputNamaPesanan.value.trim();
+  const noMeja        = inputNoMeja.value.trim();
+
+  if (!namaPelanggan) {
+    checkoutErrorEl.textContent = 'Nama pemesan wajib diisi.';
+    inputNamaPesanan.focus();
+    return;
+  }
+  checkoutErrorEl.textContent = '';
 
   const totalHarga = keranjang.reduce((sum, i) => sum + (i.qty * i.harga), 0);
 
@@ -334,15 +389,16 @@ btnCheckout.addEventListener('click', async () => {
   }));
 
   // Nonaktifkan tombol sementara supaya tidak double-klik
-  btnCheckout.disabled = true;
-  const teksAsli = btnCheckout.textContent;
-  btnCheckout.textContent = 'Menyimpan pesanan...';
+  btnCheckoutKirim.disabled = true;
+  const teksAsli = btnCheckoutKirim.textContent;
+  btnCheckoutKirim.textContent = 'Menyimpan...';
 
   try {
     const { error } = await supabaseClient
       .from('orders')
       .insert([{
         nama_pelanggan: namaPelanggan,
+        no_meja: noMeja || null,
         items: itemsUntukDb,
         total: totalHarga,
         status: 'baru'
@@ -351,7 +407,8 @@ btnCheckout.addEventListener('click', async () => {
     if (error) throw error;
 
     // Susun pesan WhatsApp sebagai konfirmasi ke warkop
-    let pesanText = `Halo Warkop Kang Asep, saya *${namaPelanggan}* mau pesan:%0A%0A`;
+    let pesanText = `Halo Warkop Kang Asep, saya *${namaPelanggan}*`;
+    pesanText += noMeja ? ` (Meja ${noMeja}) mau pesan:%0A%0A` : ` mau pesan:%0A%0A`;
 
     keranjang.forEach((item, i) => {
       const subtotal = item.qty * item.harga;
@@ -366,16 +423,17 @@ btnCheckout.addEventListener('click', async () => {
     // Kosongkan keranjang setelah pesanan berhasil tersimpan
     keranjang = [];
     renderKeranjang();
+    tutupModalCheckout();
     tutupKeranjang();
 
   } catch (err) {
     console.error('Gagal menyimpan pesanan:', err);
-    alert('Maaf, pesanan gagal disimpan ke database. Coba lagi, atau hubungi kami langsung lewat WhatsApp.');
+    checkoutErrorEl.textContent = 'Maaf, pesanan gagal disimpan. Coba lagi, atau hubungi kami langsung lewat WhatsApp.';
   } finally {
-    btnCheckout.disabled = false;
-    btnCheckout.textContent = teksAsli;
+    btnCheckoutKirim.disabled = false;
+    btnCheckoutKirim.textContent = teksAsli;
   }
-});
+}
 
 // Inisialisasi tampilan keranjang saat halaman dimuat
 renderKeranjang();

@@ -78,6 +78,26 @@
     </div>
   </aside>
 
+  <!-- ===================== MODAL CHECKOUT (NAMA + NO MEJA) ===================== -->
+  <div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-box">
+      <h3>Lengkapi Data Pesanan</h3>
+      <div class="checkout-field">
+        <label for="inputNamaPesanan">Nama Pemesan</label>
+        <input type="text" id="inputNamaPesanan" placeholder="Contoh: Budi" autocomplete="off" />
+      </div>
+      <div class="checkout-field">
+        <label for="inputNoMeja">Nomor Meja</label>
+        <input type="text" id="inputNoMeja" placeholder="Contoh: 5 (kosongkan jika takeaway)" autocomplete="off" />
+      </div>
+      <p class="checkout-error" id="checkoutError"></p>
+      <div class="checkout-actions">
+        <button class="btn-checkout-batal" id="btnCheckoutBatal">Batal</button>
+        <button class="btn-checkout-kirim" id="btnCheckoutKirim">Kirim Pesanan</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===================== HERO ===================== -->
   <section id="hero">
     <div class="hero-bg-pattern"></div>
@@ -333,6 +353,9 @@
       <div class="footer-col">
         <h4>Pesan Online</h4>
         <ul>
+          <li><a href="#">GrabFood</a></li>
+          <li><a href="#">GoFood</a></li>
+          <li><a href="#">ShopeeFood</a></li>
           <li><a href="https://wa.me/6281234567890">WhatsApp Order</a></li>
         </ul>
       </div>

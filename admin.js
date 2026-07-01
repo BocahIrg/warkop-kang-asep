@@ -33,6 +33,7 @@ function tampilkanDashboard(email) {
   emailTag.textContent = email;
   muatPesanan();
   muatMenuAdmin();
+  pantauPesananRealtime();
 }
 
 document.getElementById('btnLogin').addEventListener('click', login);
@@ -71,6 +72,10 @@ async function login() {
 
 document.getElementById('btnLogout').addEventListener('click', async () => {
   await supabaseClient.auth.signOut();
+  if (channelPesanan) {
+    supabaseClient.removeChannel(channelPesanan);
+    channelPesanan = null;
+  }
   tampilkanLogin();
 });
 
@@ -150,7 +155,7 @@ function renderPesanan() {
       <div class="order-card">
         <div class="order-top">
           <div>
-            <div class="order-nama">${escapeHtml(order.nama_pelanggan || 'Tanpa Nama')}</div>
+            <div class="order-nama">${escapeHtml(order.nama_pelanggan || 'Tanpa Nama')}${order.no_meja ? `<span class="order-meja">Meja ${escapeHtml(order.no_meja)}</span>` : ''}</div>
             <div class="order-waktu">${waktu}</div>
           </div>
           <div class="order-total">${formatRupiah(order.total)}</div>
@@ -208,6 +213,30 @@ async function hapusPesanan(id) {
   renderPesanan();
 }
 
+/* ---------- Realtime: pesanan baru langsung muncul tanpa refresh ---------- */
+let channelPesanan = null;
+
+function pantauPesananRealtime() {
+  if (channelPesanan) return; // sudah aktif, jangan dobel-subscribe
+
+  channelPesanan = supabaseClient
+    .channel('admin-orders-realtime')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, (payload) => {
+      semuaPesanan.unshift(payload.new);
+      renderPesanan();
+    })
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, (payload) => {
+      const idx = semuaPesanan.findIndex(o => o.id === payload.new.id);
+      if (idx !== -1) semuaPesanan[idx] = payload.new;
+      renderPesanan();
+    })
+    .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'orders' }, (payload) => {
+      semuaPesanan = semuaPesanan.filter(o => o.id !== payload.old.id);
+      renderPesanan();
+    })
+    .subscribe();
+}
+
 /* ============================================================
    TAB KELOLA MENU
    ============================================================ */
@@ -232,6 +261,12 @@ async function muatMenuAdmin() {
   renderMenuAdmin();
 }
 
+/* Cek apakah nilai ikon berupa URL gambar (bukan emoji) */
+function isUrlGambar(nilai) {
+  if (!nilai) return false;
+  return /^https?:\/\//i.test(nilai) || nilai.startsWith('/') || nilai.startsWith('data:image');
+}
+
 function renderMenuAdmin() {
   const gridEl = document.getElementById('menuAdminGrid');
 
@@ -240,11 +275,17 @@ function renderMenuAdmin() {
     return;
   }
 
-  gridEl.innerHTML = semuaMenu.map(item => `
+  gridEl.innerHTML = semuaMenu.map(item => {
+    const thumb = isUrlGambar(item.ikon)
+      ? `<img class="menu-admin-thumb" src="${escapeHtml(item.ikon)}" alt="${escapeHtml(item.nama)}" onerror="this.style.display='none'" />`
+      : `<div class="menu-admin-thumb">☕</div>`;
+
+    return `
     <div class="menu-admin-card ${item.aktif ? '' : 'nonaktif'}">
       <div class="menu-admin-top">
+        ${thumb}
         <div>
-          <div class="menu-admin-nama">${item.ikon || '☕'} ${escapeHtml(item.nama)}</div>
+          <div class="menu-admin-nama">${escapeHtml(item.nama)}</div>
           <div class="menu-admin-kategori">${escapeHtml(item.kategori)}${item.andalan ? ' · ⭐ Andalan' : ''}</div>
         </div>
       </div>
@@ -257,7 +298,8 @@ function renderMenuAdmin() {
         <button class="btn-hapus" onclick="hapusMenu('${item.id}')">Hapus</button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 async function toggleAktifMenu(id, statusBaru) {
@@ -306,9 +348,10 @@ function bukaModalTambah() {
   document.getElementById('formDeskripsi').value = '';
   document.getElementById('formHarga').value = '';
   document.getElementById('formKategori').value = 'kopi-panas';
-  document.getElementById('formIkon').value = '☕';
+  document.getElementById('formIkon').value = '';
   document.getElementById('formUrutan').value = semuaMenu.length + 1;
   document.getElementById('formAndalan').checked = false;
+  perbaruiPreviewIkon();
   modalOverlay.classList.add('tampil');
 }
 
@@ -322,11 +365,29 @@ function bukaModalEdit(id) {
   document.getElementById('formDeskripsi').value = item.deskripsi || '';
   document.getElementById('formHarga').value = item.harga;
   document.getElementById('formKategori').value = item.kategori;
-  document.getElementById('formIkon').value = item.ikon || '☕';
+  document.getElementById('formIkon').value = item.ikon || '';
   document.getElementById('formUrutan').value = item.urutan || 0;
   document.getElementById('formAndalan').checked = !!item.andalan;
+  perbaruiPreviewIkon();
   modalOverlay.classList.add('tampil');
 }
+
+/* Pratinjau gambar menu saat URL diketik/ditempel */
+const inputFormIkon  = document.getElementById('formIkon');
+const previewIkonEl  = document.getElementById('previewIkon');
+
+function perbaruiPreviewIkon() {
+  const url = inputFormIkon.value.trim();
+  if (isUrlGambar(url)) {
+    previewIkonEl.src = url;
+    previewIkonEl.style.display = 'block';
+  } else {
+    previewIkonEl.style.display = 'none';
+  }
+}
+
+inputFormIkon.addEventListener('input', perbaruiPreviewIkon);
+previewIkonEl.addEventListener('error', () => { previewIkonEl.style.display = 'none'; });
 
 function tutupModal() {
   modalOverlay.classList.remove('tampil');
@@ -340,7 +401,7 @@ async function simpanMenu() {
   const deskripsi  = document.getElementById('formDeskripsi').value.trim();
   const harga      = parseInt(document.getElementById('formHarga').value, 10);
   const kategori   = document.getElementById('formKategori').value;
-  const ikon       = document.getElementById('formIkon').value.trim() || '☕';
+  const ikon       = document.getElementById('formIkon').value.trim();
   const urutan     = parseInt(document.getElementById('formUrutan').value, 10) || 0;
   const andalan    = document.getElementById('formAndalan').checked;
 
