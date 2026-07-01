@@ -41,11 +41,12 @@ create table if not exists orders (
 comment on table orders is 'Riwayat pesanan yang masuk lewat keranjang belanja di web';
 comment on column orders.items is 'Array JSON berisi item yang dipesan beserta qty & harga saat itu';
 comment on column orders.status is 'baru -> diproses -> selesai (atau dibatalkan)';
-comment on column orders.no_meja is 'Nomor meja pelanggan, kosong kalau pesanan takeaway';
 
 -- Kalau tabel "orders" sudah pernah dibuat sebelumnya (database lama),
 -- baris ini menambahkan kolom no_meja tanpa menghapus data yang sudah ada.
 alter table orders add column if not exists no_meja text;
+
+comment on column orders.no_meja is 'Nomor meja pelanggan, kosong kalau pesanan takeaway';
 
 -- Index biar query staff (lihat pesanan terbaru / status) lebih cepat
 create index if not exists idx_orders_created_at on orders (created_at desc);
