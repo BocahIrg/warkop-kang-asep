@@ -294,17 +294,22 @@
     }
     .menu-admin-card.nonaktif { opacity: 0.5; }
     .menu-admin-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 0.6rem; margin-bottom: 0.4rem;
+      display: flex; justify-content: flex-start; align-items: flex-start;
+      gap: 0.8rem; margin-bottom: 0.4rem;
     }
     .menu-admin-thumb {
       width: 52px; height: 52px;
       border-radius: 8px;
-      object-fit: cover;
       flex-shrink: 0;
       background: var(--susu);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.6rem;
+      overflow: hidden;
+    }
+    .menu-admin-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.35);
     }
     .menu-admin-nama { font-weight: 700; font-size: 0.98rem; }
     .menu-admin-kategori {
