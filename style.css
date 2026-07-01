@@ -539,6 +539,15 @@ nav {
   font-weight: 300;
 }
 
+.menu-status {
+  text-align: center;
+  color: rgba(245,236,215,0.5);
+  font-size: 0.9rem;
+  padding: 1rem 0 2rem;
+}
+.menu-status.status-error { color: #e08b7a; }
+.menu-status.tersembunyi { display: none; }
+
 /* Filter tab */
 .menu-filter {
   display: flex; justify-content: center;
@@ -861,6 +870,17 @@ footer {
   font-size: 0.8rem;
 }
 .footer-bottom span { color: var(--amber); }
+
+.footer-dot {
+  margin: 0 0.5rem;
+  color: rgba(245,236,215,0.2);
+}
+.footer-admin-link {
+  color: rgba(245,236,215,0.25);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-admin-link:hover { color: var(--amber-light); }
 
 /* ===== SCROLL REVEAL ===== */
 .reveal {
