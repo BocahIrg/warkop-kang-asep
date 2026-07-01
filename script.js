@@ -363,9 +363,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 btnCheckoutKirim.addEventListener('click', prosesCheckout);
-inputNoMeja.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') prosesCheckout();
-});
 
 /* ---------- Checkout: simpan ke database + buka WhatsApp ---------- */
 async function prosesCheckout() {

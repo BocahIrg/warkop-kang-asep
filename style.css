@@ -370,6 +370,24 @@ nav {
   font-family: 'Lato', sans-serif;
 }
 .checkout-field input:focus { outline: none; border-color: var(--amber); }
+.checkout-field select {
+  width: 100%;
+  padding: 0.7rem 2.2rem 0.7rem 0.9rem;
+  border-radius: 6px;
+  border: 1.5px solid rgba(28,15,7,0.15);
+  color: var(--kopi);
+  background: var(--putih);
+  font-size: 0.95rem;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%231c0f07'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 16px;
+}
+.checkout-field select:focus { outline: none; border-color: var(--amber); }
 .checkout-error {
   color: #c0392b;
   font-size: 0.83rem;
